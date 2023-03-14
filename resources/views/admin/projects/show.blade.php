@@ -1,4 +1,4 @@
-{{--* Projects\Show.blade.php --}}
+{{-- * Projects\Show.blade.php --}}
 @extends('layouts.admin')
 @section('content')
     <div class="container">
@@ -21,18 +21,28 @@
 
                 <p><strong>Slug:</strong>{{ $project->slug }}</p>
 
-                <p><strong>Categoria:</strong>{{ $project->category ? $project->category->name : 'Nessuna Categoria Selezionata'}}</p>
+                <p><strong>Autore:</strong>{{ $project->author }}</p>
+
+                <p><strong>Categoria:</strong>{{ $project->category ? $project->category->name : 'Nessuna Categoria Selezionata' }}
+                </p>
+
+                <p><strong>tecnologie</strong>
+
+                  @forelse($project->technologies as $technology)
+                  <p>{{ $technology->name }}</p>
+                  @empty
+                  <p>nessuna tecnelogia selezionata</p>
+                  @endforelse
+
+
+                </p>
 
                 <strong>Descrizione</strong>
                 <p>{{ $project->description }}</p>
 
-
                 <p><strong>Autore:</strong>{{ $project->author }}</p>
 
                 <p><strong>Riassunto:</strong>{{ $project->excerpt }}</p>
-
-
-
 
                 <div class="my-3">
                     <strong>Pubblicato</strong>

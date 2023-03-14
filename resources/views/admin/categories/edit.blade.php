@@ -15,14 +15,14 @@
         </div>
         <div class="col-12">
 
-            <form action="{{ route('admin.categories.update', $type->slug)}} " method="POST">
+            <form action="{{ route('admin.categories.update', $category->slug)}} " method="POST">
                 @csrf
                 @method('PUT')
                 <div class="form-group my-3">
                     <label class="control-label">
                         nome categoria
                     </label>
-                    <input type="text" class="form-control" placeholder="inserisci nuova categoria" id="name" name="name" value="{{old('name') ?? $type->name}}">
+                    <input type="text" class="form-control" placeholder="inserisci nuova categoria" id="name" name="name" value="{{old('name') ?? $category->name}}">
                 </div>
 
                 <div class="form-group my-3">

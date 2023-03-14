@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller; // Classe da non dimenticare
-use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Project;
@@ -83,12 +82,13 @@ class ProjectController extends Controller
         $newProject = new Project;
         $newProject->fill($form_data);
 
+
         $newProject->save();
 
+        //* Controllo se l'array associativO Request ha l'indice Technologies
         if($request->has('technologies')){
             $newProject->technologies()->attach($request->technologies);
         }
-
         return redirect()->route('admin.projects.index')->with('message', 'Progetto Creato con successo.');
     }
 
@@ -102,6 +102,7 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
+
         return view('admin.projects.show', compact('project'));
     }
 
@@ -118,7 +119,8 @@ class ProjectController extends Controller
 
         //* Recupero Elenco Categorie
         $categories = Category::all();
-        return view('admin.projects.edit', compact('project','categories'));
+        $technologies = Technology::all();
+        return view('admin.projects.edit', compact('project', 'categories', 'technologies'));
     }
 
     //! -UPDATE-
@@ -156,10 +158,21 @@ class ProjectController extends Controller
 
         $project->update($form_data);
 
-        /*  $newProject = new Project;
-            $newProject->fill($form_data);
-            $newProject->save(); */
-        return redirect()->route('admin.projects.index')->with('message', $project->title . 'Progetto Modificato Correttamente');
+        //* FORMA COMPLETA
+        /* if($request->has('technologies')){
+            $project->technologies()->detach();
+
+            foreach($request->'technologies' as $technology){
+                $project->technologies()->attach($technology['id']);
+            }
+        } */
+
+        //* FORMA (FUNZIONE) OTTIMIZZATA GRAZIE AL SYNC
+        $project->technologies()->sync($request->technologies);
+
+
+
+        return redirect()->route('admin.projects.index')->with('message', $project->title. 'Progetto Modificato Correttamente');
     }
 
     //! -DESTROY-
@@ -172,6 +185,11 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+        // se non ho
+        //* cancellare i record presenti nella tabella ponte.
+        $project->technologies()->sync([]);
+
+        //*Canacella i Project
         $project->delete();
         return redirect()->route('admin.projects.index')->with('message', 'Progetto Eliminato con Successo.');
     }

@@ -6,17 +6,14 @@
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-between mt-3">
                 <div>
-                    <h1>elenco tecnologie</h1>
+                    <h1>Elenco Tecnologie</h1>
                 </div>
                 <div class="my-2">
                     <a href="" class="btn btn-primary">aggiungi progetto</a>
                 </div>
-
             </div>
-
-
 
         </div>
         <div class="col-12">
@@ -27,10 +24,9 @@
             @endif
             <table class="table table-striped">
                 <thead>
-                    <th><strong>id</strong></th>
-                    <th><strong>nome</strong></th>
-                    <th><strong>slug</strong></th>
-                    <th><strong>azioni</strong></th>
+                    <th><strong>Id</strong></th>
+                    <th><strong>Nome</strong></th>
+                    <th><strong>Slug</strong></th>
                 </thead>
                 <tbody>
                     @foreach($technologies as $technology)
@@ -38,7 +34,7 @@
                         <td>{{$technology->id}}</td>
                         <td>{{$technology->name}}</td>
                         <td>{{$technology->slug}}</td>
-                        <td class="d-flex justify-content-between">
+
 
                         </td>
                     </tr>

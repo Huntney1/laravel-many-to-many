@@ -67,13 +67,13 @@
                         </div>
                         @foreach ($technologies as $technology)
                             <div class="form-check @error('technologies') is-invalid @enderror">
-                                <input type="checkbox" value="{{ $technology->id }}" name="technologies[]">
-                                {{-- * name="technologies[]" = crea una specie di array --}}
+                                <input class="form-check-input" type="checkbox" value="{{ $technology->id }}"
+                                    name="technologies[]">{{-- * name="technologies[]" = crea una specie di array --}}
                                 <label for="" class="form-check-label">{{ $technology->name }}</label>
                             </div>
                         @endforeach
                         @error('technologies')
-                          <div class="invalid-feedback">{{ $message }}</div>
+                            <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 

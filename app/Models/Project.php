@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
+
 class Project extends Model
 {
 
@@ -42,7 +43,7 @@ class Project extends Model
      *
      * @return void
      */
-    public function technology(){
+    public function technologies(){
         return $this->belongsToMany(Technology::class); //* belongsTo = appartiene A...
     }
 }

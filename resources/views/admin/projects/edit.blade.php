@@ -1,7 +1,6 @@
-{{--* Projects\Edit.blade.php --}}
+{{-- * Projects\Edit.blade.php --}}
 @extends('layouts.admin')
 @section('content')
-
     <div class="container">
         <div class="row">
             <div class="col-12 d-flex justify-content-between my-2">
@@ -59,7 +58,7 @@
                             <option value="">Seleziona Categoria...</option>
                             @foreach ($categories as $category)
                                 <option value="{{ $category->id }}"
-                                    {{$category->id == old('$category_id', $project->category_id) ? 'selected' : ''}}>
+                                    {{ $category->id == old('$category_id', $project->category_id) ? 'selected' : '' }}>
                                     {{ $category->name }}
                                 </option>
                             @endforeach
@@ -76,26 +75,32 @@
                         </div>
                         @foreach ($technologies as $technology)
                             <div class="form-check @error('technologies') is-invalid @enderror">
-                                {{--* PRIMO CASO --}}
-                                {{--? Ci Sono Degli Errori di Validazione Quindi Bisogna Ricaricare i Progetti selezionati tramite la funzione old() --}}
 
-                                @if (errors->any())
+                                @if ($errors->any())
+                                    {{-- ? PRIMO CASO --}}
+                                    {{-- * Ci Sono Degli Errori di Validazione Quindi Bisogna Ricaricare i Progetti selezionati tramite la funzione old() --}}
 
+                                    {{-- ? Controlliamo --}}
+                                    {{-- se è presente il valore di Technology->id nel Array technologies allora mettiamo il checked. --}}
+                                    <input class="form-chechk-input" type="checkbox" value="{{ $technology->id }}"
+                                        name="technologies[]" {{-- * name="technologies[]" = crea un array con gli Id delle tecnologie --}}
+                                        {{ in_array($technology->id, old('technologies', [])) ? 'checkd' : '' }}>
+                                    <label for="" class="form-check-label">{{ $technology->name }}</label>
                                 @else
+                                    {{-- ? SECONDO CASO --}}
+                                    {{-- * Se Non Sono Presenti Errori di Validazione Significa Che la Pagina è Stata Aperta Per la Prima Volta,Quindi Dobbiamo Recuperare le Tecnologie in Relazione hai Progetti --}}
 
-
+                                    {{-- ? Controlliamo --}}
+                                    {{-- recupero nel project le technologies che contengono il singolo technology, Se è vero metto check altrimenti stringa vuota --}}
+                                    <input class="form-check-input" type="checkbox" value="{{ $technology->id }}"
+                                        name="technology[]"{{ $project->technologies->contains($technology) ? 'checked' : '' }}>
+                                        <label for="" class="form-check-label">{{ $technology->name }}</label>
                                 @endif
 
-
-
-
-                                <input type="checkbox" value="{{ $technology->id }}" name="technologies[]">
-                                {{-- * name="technologies[]" = crea un array con gli id delle tecnologie --}}
-                                <label for="" class="form-check-label">{{ $technology->name }}</label>
                             </div>
                         @endforeach
                         @error('technologies')
-                          <div class="invalid-feedback">{{ $message }}</div>
+                            <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
@@ -113,8 +118,8 @@
                         <label class="control-label">
                             Pubblicato
                         </label>
-                        <input type="date" class="form-control" placeholder="Inserisci l'Immagine"
-                            id="published" name="published" value="{{ old('published') ?? $project->published }}">
+                        <input type="date" class="form-control" placeholder="Inserisci l'Immagine" id="published"
+                            name="published" value="{{ old('published') ?? $project->published }}">
                     </div>
 
                     <div class="form-group my-3">

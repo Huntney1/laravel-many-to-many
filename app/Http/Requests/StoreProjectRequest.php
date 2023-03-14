@@ -30,7 +30,7 @@ class StoreProjectRequest extends FormRequest
             'description'   => ['nullable' ,'string'], //* campo facoltativo di tipo stringa
             'autor'         => ['nullable','string'], // campo facoltativo di tipo stringa
             'category_id'   => ['nullable', 'exists:categories,id'],
-            'technologies'   => ['exists:technologies,id'],
+            'technologies'  => ['exists:technologies,id'],
             'published_at'  => ['date_format:d-m-Y H:i:s','nullable'], // campo facoltativo che deve essere una data valida
             /* 'image'      => ['sometimes', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048', 'dimensions:min_width=100,min_height=100,max_width=5000,max_height=5000'], */ //*  campo facoltativo di tipo immagine con i formati consentiti JPEG, PNG, JPG, GIF e SVG e dimensione massima di 2 MB
         ];
@@ -49,7 +49,7 @@ class StoreProjectRequest extends FormRequest
             'title.unique'          => 'Il titolo del progetto è già stato utilizzato',
             'title.max'             => 'Il titolo del progetto non può superare i :max caratteri',
             'category_id.exist'     => 'Seleziona Cadegoria Valida',
-            'technologies.exist'     => 'Seleziona Tecnologia Valida',
+            'technologies.exist'    => 'Seleziona Tecnologia Valida',
             'description.string'    => 'La descrizione del progetto deve essere una stringa',
             /* 'image.image'        => 'Il file caricato non è un\'immagine',
             'image.mimes'           => 'Il file caricato deve essere in formato: :values',
