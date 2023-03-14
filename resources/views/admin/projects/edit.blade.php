@@ -69,6 +69,36 @@
                         @enderror
                     </div>
 
+                    {{-- * TECNOLOGIA --}}
+                    <div class="form-group my-3">
+                        <div class="control-label">
+                            Tecnologia
+                        </div>
+                        @foreach ($technologies as $technology)
+                            <div class="form-check @error('technologies') is-invalid @enderror">
+                                {{--* PRIMO CASO --}}
+                                {{--? Ci Sono Degli Errori di Validazione Quindi Bisogna Ricaricare i Progetti selezionati tramite la funzione old() --}}
+
+                                @if (errors->any())
+
+                                @else
+
+
+                                @endif
+
+
+
+
+                                <input type="checkbox" value="{{ $technology->id }}" name="technologies[]">
+                                {{-- * name="technologies[]" = crea un array con gli id delle tecnologie --}}
+                                <label for="" class="form-check-label">{{ $technology->name }}</label>
+                            </div>
+                        @endforeach
+                        @error('technologies')
+                          <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
                     {{-- * DESCRIZIONE --}}
                     <div class="form-group my-3">
                         <label class="control-label">
@@ -79,13 +109,14 @@
                     </div>
 
                     {{-- * PUBBLICATO --}}
-                    {{-- <div class="form-group my-3">
+                    <div class="form-group my-3">
                         <label class="control-label">
                             Pubblicato
                         </label>
                         <input type="date" class="form-control" placeholder="Inserisci l'Immagine"
                             id="published" name="published" value="{{ old('published') ?? $project->published }}">
-                    </div> --}}
+                    </div>
+
                     <div class="form-group my-3">
                         <button type="submit" class="btn btn-success">SALVA</button>
                     </div>

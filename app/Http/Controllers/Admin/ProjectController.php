@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller; // Classe da non dimenticare
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Controller; // Classe da non dimenticare
 use App\Models\Project;
 use App\Models\Category;
+use App\Models\Technology;
 use Carbon\Carbon;
 use DateTime;
 
@@ -43,7 +44,8 @@ class ProjectController extends Controller
     {
         //* Recupero Elenco Categorie
         $categories = Category::all();
-        return view('admin.projects.create', compact('categories'));
+        $technologies = Technology::all();
+        return view('admin.projects.create', compact('categories', 'technologies'));
     }
 
     //! -STORE-
@@ -59,7 +61,11 @@ class ProjectController extends Controller
         $form_data = $request->validated();
 
         $slug = Project::generateSlug($request->title);
+
         $excerpt = '';
+        if ($request->content != '') {
+            $excerpt = substr($request->content, 0, 147) . '...';
+        }
 
         //* Converti la data nel formato desiderato
         if (!empty($form_data['published'])) {
@@ -68,9 +74,6 @@ class ProjectController extends Controller
             unset($form_data['published']);
         }
 
-        if ($request->content != '') {
-            $excerpt = substr($request->content, 0, 147) . '...';
-        }
 
         //*Aggiungo Coppia Chiave Valore All'array $form_data
         $form_data['slug'] = $slug;
@@ -79,7 +82,12 @@ class ProjectController extends Controller
 
         $newProject = new Project;
         $newProject->fill($form_data);
+
         $newProject->save();
+
+        if($request->has('technologies')){
+            $newProject->technologies()->attach($request->technologies);
+        }
 
         return redirect()->route('admin.projects.index')->with('message', 'Progetto Creato con successo.');
     }

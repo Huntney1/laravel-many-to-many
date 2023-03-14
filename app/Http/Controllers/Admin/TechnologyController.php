@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\StoreTechnologyRequest;
 use App\Http\Requests\UpdateTechnologyRequest;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Technology;
 
 
@@ -19,8 +20,8 @@ class TechnologyController extends Controller
     public function index()
     {
         //* Recupero Elenco Tecnologie
-        $categories = Technology::all();
-        return view('admin.technologies.edit', compact('technology'));
+        $technologies = technology::all();
+        return view('admin.technologies.index', compact('technologies'));
     }
 
     /**
