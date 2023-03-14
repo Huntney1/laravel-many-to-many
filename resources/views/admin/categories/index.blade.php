@@ -1,4 +1,4 @@
-{{-- * Index.blade.php --}}
+{{-- * Categorie\Index.blade.php --}}
 @extends('layouts.admin')
 
 @section('content')

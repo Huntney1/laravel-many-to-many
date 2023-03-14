@@ -1,4 +1,4 @@
-{{-- * Create.blade.php --}}
+{{-- * Projects\Create.blade.php --}}
 @extends('layouts.admin')
 @section('content')
 
@@ -57,6 +57,23 @@
                         </select>
                         @error('category_id')
                             <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    {{-- * TECNOLOGIA --}}
+                    <div class="form-group my-3">
+                        <div class="control-label">
+                            Tecnologia
+                        </div>
+                        @foreach ($technologies as $technology)
+                            <div class="form-check @error('technologies') is-invalid @enderror">
+                                <input type="checkbox" value="{{ $technology->id }}" name="technologies[]">
+                                {{-- * name="technologies[]" = crea una specie di array --}}
+                                <label for="" class="form-check-label">{{ $technology->name }}</label>
+                            </div>
+                        @endforeach
+                        @error('technologies')
+                          <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 

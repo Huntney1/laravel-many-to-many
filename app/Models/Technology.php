@@ -15,6 +15,12 @@ class Technology extends Model
         return Str::slug($name, '-');
     }
 
+    /**
+     * Get the technology projects.
+     ** Ottieni la technology di projects.
+     *
+     * @return void
+     */
     public function posts(){
         return $this->belongsToMany(Project::class);
     }

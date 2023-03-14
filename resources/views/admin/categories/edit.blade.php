@@ -1,3 +1,4 @@
+{{-- * Categorie\Edit.blade.php --}}
 @extends('layouts.admin')
 @section('content')
 

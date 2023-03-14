@@ -1,4 +1,4 @@
-{{--* Show.blade.php --}}
+{{--* Projects\Show.blade.php --}}
 @extends('layouts.admin')
 @section('content')
     <div class="container">

@@ -33,6 +33,16 @@ class Project extends Model
      *
      */
     public function category(){
-        return $this->belongsTo(category::class); //* belongsTo = appartiene A...
+        return $this->belongsTo(Category::class); //* belongsTo = appartiene A...
+    }
+
+    /**
+      * Get the project technology.
+     ** Ottieni il progetto di technology.
+     *
+     * @return void
+     */
+    public function technology(){
+        return $this->belongsToMany(Technology::class); //* belongsTo = appartiene A...
     }
 }

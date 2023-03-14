@@ -1,4 +1,4 @@
-{{--* Edit.blade.php --}}
+{{--* Projects\Edit.blade.php --}}
 @extends('layouts.admin')
 @section('content')
 

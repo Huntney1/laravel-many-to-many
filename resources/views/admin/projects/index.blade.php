@@ -1,4 +1,4 @@
-{{-- * Index.blade.php --}}
+{{-- * Projects\Index.blade.php --}}
 @extends('layouts.admin')
 
 @section('content')
@@ -41,14 +41,14 @@
                         <td>{{ $project->description }}</td>
                         <td>{{ date('d/m/Y H:i', strtotime($project->published)) }}</td>
 
-                        <td>
+                        <td style="display:flex; justify-content:space-evenly">
                             {{-- * questa rotta visualizza il dettaglio del progetto --}}
                             <a href="{{ route('admin.projects.show', $project->slug) }}"
-                                class="btn btn-lg btn-primary btn-square" title="Visualizza Dettaglio"><i
+                                class="btn btn-primary btn-square" title="Visualizza Dettaglio"><i
                                     class="fas fa-eye"></i></a>
 
                             {{-- * questa rotta modifica il progetto --}}
-                            <a class="btn btn-lg btn-warning btn-square"
+                            <a class="btn btn-warning btn-square"
                                 href="{{ route('admin.projects.edit', $project->slug) }}" title="Modifica Dettaglio"><i
                                     class="fas fa-edit"></i></a>
 
@@ -56,7 +56,7 @@
                             <form action="{{ route('admin.projects.destroy', $project->slug) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button class="btn btn-lg btn-square btn-danger" data-bs-toggle="modal"
+                                <button class="btn btn-square btn-danger" data-bs-toggle="modal"
                                     data-bs-target="#delete-modal-project" data-projectid="{{ $project->id }}"
                                     type="submit" title="Elimina"><i class="fas fa-trash"></i></button>
                             </form>
